@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Weather App</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+    text-align: center;
+    color: white;
+}
+</style>
+
+</head>
+<body>
+
+<h1>🌤 Weather App</h1>
+
+<input type="text" id="cityInput" placeholder="Enter city">
+<button onclick="getWeather()">Get Weather</button>
+
+<h2 id="cityName"></h2>
+<p id="temp"></p>
+<p id="condition"></p>
+
+<script>
+async function getWeather() {
+    const city = document.getElementById("cityInput").value;
+
+    const apiKey = "9e30e2aacc2943e285e180102260104";
+    const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&aqi=yes`;
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    document.getElementById("cityName").innerText = data.location.name;
+    document.getElementById("temp").innerText = data.current.temp_c + " °C";
+    document.getElementById("condition").innerText = data.current.condition.text;
+}
+</script>
+
+</body>
+</html>
